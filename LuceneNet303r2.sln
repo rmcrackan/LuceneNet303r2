@@ -7,6 +7,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LuceneNet303r2", "LuceneNet
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LuceneNet303r2.Tests", "LuceneNet303r2.Tests\LuceneNet303r2.Tests.csproj", "{E98B06BF-47C6-4D3F-95DE-53429E5669D0}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{EEBAC96D-37BF-409D-AE72-C02F473C2307}"
+	ProjectSection(SolutionItems) = preProject
+		lucenenet source code.txt = lucenenet source code.txt
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

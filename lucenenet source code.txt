@@ -1,0 +1,18 @@
+How I got Lucene.Net 3.0.3 to build under .NET Standard 2.1
+===========================================================
+lucene.net 3.0.3 source code:
+
+clone git
+view branches
+checkout 303r2
+create new dotnetcore/standard proj
+copy all files into new
+delete "-old" file
+add nuget System.Configuration.ConfigurationManager
+
+-OR-
+
+http://lucenenet.apache.org/
+click "Download" > http://lucenenet.apache.org/download/download.html
+click "Lucene 3.0.3" > http://lucenenet.apache.org/download/version-3.html
+click "Git release tag" > https://github.com/apache/lucenenet/releases/tag/Lucene.Net_3_0_3_RC2_final
