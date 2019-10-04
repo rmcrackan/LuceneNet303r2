@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29326.143
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LuceneNet303r2", "LuceneNet303r2\LuceneNet303r2.csproj", "{EF24ED67-58D9-44DC-8468-77DE409971FC}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LuceneNet303r2.Tests", "LuceneNet303r2.Tests\LuceneNet303r2.Tests.csproj", "{E98B06BF-47C6-4D3F-95DE-53429E5669D0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EF24ED67-58D9-44DC-8468-77DE409971FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EF24ED67-58D9-44DC-8468-77DE409971FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EF24ED67-58D9-44DC-8468-77DE409971FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EF24ED67-58D9-44DC-8468-77DE409971FC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E98B06BF-47C6-4D3F-95DE-53429E5669D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E98B06BF-47C6-4D3F-95DE-53429E5669D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E98B06BF-47C6-4D3F-95DE-53429E5669D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E98B06BF-47C6-4D3F-95DE-53429E5669D0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A2F22093-D8B8-4791-9DCC-09AFB0E5967E}
+	EndGlobalSection
+EndGlobal
