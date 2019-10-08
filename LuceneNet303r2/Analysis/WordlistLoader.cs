@@ -33,10 +33,8 @@ namespace Lucene.Net.Analysis
 		/// <returns> A HashSet with the file's words</returns>
 		public static ISet<string> GetWordSet(System.IO.FileInfo wordfile)
 		{
-            using (var reader = new System.IO.StreamReader(wordfile.FullName, System.Text.Encoding.Default))
-            {
-                return GetWordSet(reader);
-            }
+			using var reader = new System.IO.StreamReader(wordfile.FullName, System.Text.Encoding.Default);
+			return GetWordSet(reader);
 		}
 		
 		/// <summary> Loads a text file and adds every non-comment line as an entry to a HashSet (omitting
@@ -49,10 +47,8 @@ namespace Lucene.Net.Analysis
 		/// <returns> A HashSet with the file's words</returns>
 		public static ISet<string> GetWordSet(System.IO.FileInfo wordfile, string comment)
 		{
-            using (var reader = new System.IO.StreamReader(wordfile.FullName, System.Text.Encoding.Default))
-            {
-                return GetWordSet(reader, comment);
-            }
+			using var reader = new System.IO.StreamReader(wordfile.FullName, System.Text.Encoding.Default);
+			return GetWordSet(reader, comment);
 		}
 		
 		
