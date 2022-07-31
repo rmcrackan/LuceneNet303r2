@@ -17,6 +17,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 
 namespace Lucene.Net.Store
 {
@@ -267,7 +268,8 @@ namespace Lucene.Net.Store
                             lock_Renamed = false;
                             try
                             {
-                                channel.Lock(0, channel.Length);
+                                if (!RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+                                    channel.Lock(0, channel.Length);
                                 lock_Renamed = true;
                             }
                             catch (System.IO.IOException e)
@@ -353,7 +355,8 @@ namespace Lucene.Net.Store
                 {
                     try
                     {
-                        channel.Unlock(0, channel.Length);
+                        if (!RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+                            channel.Unlock(0, channel.Length);
                     }
                     finally
                     {
