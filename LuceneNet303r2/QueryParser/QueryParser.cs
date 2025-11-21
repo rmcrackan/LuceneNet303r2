@@ -158,7 +158,7 @@ namespace Lucene.Net.QueryParsers
         private bool _useJavaStyleDateRangeParsing = false;
 
         private Analyzer analyzer;
-        private string field;
+        private string m_field;
         private int phraseSlop = 0;
         private float fuzzyMinSim = FuzzyQuery.defaultMinSimilarity;
         private int fuzzyPrefixLength = FuzzyQuery.defaultPrefixLength;
@@ -193,7 +193,7 @@ namespace Lucene.Net.QueryParsers
             : this(new FastCharStream(new StringReader("")))
         {
             analyzer = a;
-            field = f;
+            m_field = f;
             if (matchVersion.OnOrAfter(Version.LUCENE_29))
             {
                 enablePositionIncrements = true;
@@ -220,7 +220,7 @@ namespace Lucene.Net.QueryParsers
             try
             {
                 // TopLevelQuery is a Query followed by the end-of-input (EOF)
-                Query res = TopLevelQuery(field);
+                Query res = TopLevelQuery(m_field);
                 return res ?? NewBooleanQuery(false);
             }
             catch (ParseException tme)
@@ -247,7 +247,7 @@ namespace Lucene.Net.QueryParsers
         /// <value> Returns the field. </value>
         public virtual string Field
         {
-            get { return field; }
+            get { return m_field; }
         }
 
         /// <summary> 

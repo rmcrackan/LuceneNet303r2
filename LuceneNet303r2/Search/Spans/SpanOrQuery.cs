@@ -163,7 +163,7 @@ namespace Lucene.Net.Search.Spans
 		}
 
 		private EquatableList<SpanQuery> clauses;
-		private string field;
+		private string m_field;
 		
 		/// <summary>Construct a SpanOrQuery merging the provided clauses. </summary>
 		public SpanOrQuery(params SpanQuery[] clauses)
@@ -177,9 +177,9 @@ namespace Lucene.Net.Search.Spans
 				if (i == 0)
 				{
 					// check field
-					field = clause.Field;
+					m_field = clause.Field;
 				}
-				else if (!clause.Field.Equals(field))
+				else if (!clause.Field.Equals(m_field))
 				{
 					throw new System.ArgumentException("Clauses must have same field.");
 				}
@@ -195,7 +195,7 @@ namespace Lucene.Net.Search.Spans
 
 	    public override string Field
 	    {
-	        get { return field; }
+	        get { return m_field; }
 	    }
 
 	    public override void  ExtractTerms(System.Collections.Generic.ISet<Term> terms)
@@ -277,7 +277,7 @@ namespace Lucene.Net.Search.Spans
 			
 			if (!clauses.Equals(that.clauses))
 				return false;
-			if (!(clauses.Count == 0) && !field.Equals(that.field))
+			if (!(clauses.Count == 0) && !m_field.Equals(that.m_field))
 				return false;
 			
 			return Boost == that.Boost;

@@ -72,17 +72,17 @@ namespace Lucene.Net.Search.Spans
 	public class FieldMaskingSpanQuery:SpanQuery
 	{
 		private SpanQuery maskedQuery;
-		private string field;
+		private string m_field;
 		
 		public FieldMaskingSpanQuery(SpanQuery maskedQuery, string maskedField)
 		{
 			this.maskedQuery = maskedQuery;
-			this.field = maskedField;
+			this.m_field = maskedField;
 		}
 
 	    public override string Field
 	    {
-	        get { return field; }
+	        get { return m_field; }
 	    }
 
 	    public virtual SpanQuery MaskedQuery
@@ -142,7 +142,7 @@ namespace Lucene.Net.Search.Spans
 			buffer.Append(")");
 			buffer.Append(ToStringUtils.Boost(Boost));
 			buffer.Append(" as ");
-			buffer.Append(this.field);
+			buffer.Append(this.m_field);
 			return buffer.ToString();
 		}
 		

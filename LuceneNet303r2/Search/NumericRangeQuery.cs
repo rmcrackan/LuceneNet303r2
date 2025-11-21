@@ -161,7 +161,7 @@ namespace Lucene.Net.Search
 			System.Diagnostics.Debug.Assert((valSize == 32 || valSize == 64));
 			if (precisionStep < 1)
 				throw new System.ArgumentException("precisionStep must be >=1");
-			this.field = StringHelper.Intern(field);
+			this.m_field = StringHelper.Intern(field);
 			this.precisionStep = precisionStep;
 			this.valSize = valSize;
 			this.min = min;
@@ -206,7 +206,7 @@ namespace Lucene.Net.Search
 	    /// <summary>Returns the field name for this query </summary>
 	    public string Field
 	    {
-	        get { return field; }
+	        get { return m_field; }
 	    }
 
 	    /// <summary>Returns <c>true</c> if the lower endpoint is inclusive </summary>
@@ -236,8 +236,8 @@ namespace Lucene.Net.Search
 		public override string ToString(string field)
 		{
 			System.Text.StringBuilder sb = new System.Text.StringBuilder();
-			if (!this.field.Equals(field))
-				sb.Append(this.field).Append(':');
+			if (!this.m_field.Equals(field))
+				sb.Append(this.m_field).Append(':');
             return sb.Append(minInclusive ? '[' : '{').Append((min == null) ? "*" : min.ToString()).Append(" TO ").Append((max == null) ? "*" : max.ToString()).Append(maxInclusive ? ']' : '}').Append(ToStringUtils.Boost(Boost)).ToString();
         }
 		
@@ -250,7 +250,7 @@ namespace Lucene.Net.Search
 			if (o is NumericRangeQuery<T>)
 			{
                 NumericRangeQuery<T> q = (NumericRangeQuery<T>)o;
-                return ((object)field == (object)q.field && (q.min == null ? min == null : q.min.Equals(min)) && (q.max == null ? max == null : q.max.Equals(max)) && minInclusive == q.minInclusive && maxInclusive == q.maxInclusive && precisionStep == q.precisionStep);
+                return ((object)m_field == (object)q.m_field && (q.min == null ? min == null : q.min.Equals(min)) && (q.max == null ? max == null : q.max.Equals(max)) && minInclusive == q.minInclusive && maxInclusive == q.maxInclusive && precisionStep == q.precisionStep);
             }
 			return false;
 		}
@@ -258,7 +258,7 @@ namespace Lucene.Net.Search
 		public override int GetHashCode()
 		{
 			int hash = base.GetHashCode();
-            hash += (field.GetHashCode() ^ 0x4565fd66 + precisionStep ^ 0x64365465);
+            hash += (m_field.GetHashCode() ^ 0x4565fd66 + precisionStep ^ 0x64365465);
             if (min != null)
                 hash += (min.GetHashCode() ^ 0x14fa55fb);
             if (max != null)
@@ -277,11 +277,11 @@ namespace Lucene.Net.Search
         [System.Runtime.Serialization.OnDeserialized]
         internal void OnDeserialized(System.Runtime.Serialization.StreamingContext context)
         {
-            field = StringHelper.Intern(field);
+            m_field = StringHelper.Intern(m_field);
         }
 		
 		// members (package private, to be also fast accessible by NumericRangeTermEnum)
-		internal string field;
+		internal string m_field;
 		internal int precisionStep;
 		internal int valSize;
 		internal T? min;
@@ -355,7 +355,7 @@ namespace Lucene.Net.Search
 			private void  InitBlock(NumericRangeQuery<T> enclosingInstance)
 			{
 				this.enclosingInstance = enclosingInstance;
-                termTemplate = new Term(Enclosing_Instance.field);
+                termTemplate = new Term(Enclosing_Instance.m_field);
 			}
             private NumericRangeQuery<T> enclosingInstance;
             public NumericRangeQuery<T> Enclosing_Instance
@@ -510,7 +510,7 @@ namespace Lucene.Net.Search
 			//@Override
 			protected internal override bool TermCompare(Term term)
 			{
-				return (term.Field == Enclosing_Instance.field && string.CompareOrdinal(term.Text, currentUpperBound) <= 0);
+				return (term.Field == Enclosing_Instance.m_field && string.CompareOrdinal(term.Text, currentUpperBound) <= 0);
 			}
 			
 			/// <summary>Increments the enumeration to the next element.  True if one exists. </summary>

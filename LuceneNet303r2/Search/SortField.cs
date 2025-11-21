@@ -106,7 +106,7 @@ namespace Lucene.Net.Search
 		/// <summary>Represents sorting by document number (index order). </summary>
 		public static readonly SortField FIELD_DOC = new SortField(null, DOC);
 		
-		private string field;
+		private string m_field;
 		private int type; // defaults to determining type dynamically
 		private System.Globalization.CultureInfo locale; // defaults to "natural order" (no Locale)
 		internal bool reverse = false; // defaults to natural order
@@ -263,7 +263,7 @@ namespace Lucene.Net.Search
 			}
 			else
 			{
-				this.field = StringHelper.Intern(field);
+				this.m_field = StringHelper.Intern(field);
 			}
 		}
 
@@ -273,7 +273,7 @@ namespace Lucene.Net.Search
 	    /// <value> Name of field, possibly &lt;c&gt;null&lt;/c&gt;. </value>
 	    public virtual string Field
 	    {
-	        get { return field; }
+	        get { return m_field; }
 	    }
 
 	    /// <summary>Returns the type of contents in the field.</summary>
@@ -332,43 +332,43 @@ namespace Lucene.Net.Search
 					break;
 				
 				case STRING: 
-					buffer.Append("<string: \"").Append(field).Append("\">");
+					buffer.Append("<string: \"").Append(m_field).Append("\">");
 					break;
 				
 				case STRING_VAL: 
-					buffer.Append("<string_val: \"").Append(field).Append("\">");
+					buffer.Append("<string_val: \"").Append(m_field).Append("\">");
 					break;
 				
 				case BYTE: 
-					buffer.Append("<byte: \"").Append(field).Append("\">");
+					buffer.Append("<byte: \"").Append(m_field).Append("\">");
 					break;
 				
 				case SHORT: 
-					buffer.Append("<short: \"").Append(field).Append("\">");
+					buffer.Append("<short: \"").Append(m_field).Append("\">");
 					break;
 				
 				case INT: 
-					buffer.Append("<int: \"").Append(field).Append("\">");
+					buffer.Append("<int: \"").Append(m_field).Append("\">");
 					break;
 				
 				case LONG: 
-					buffer.Append("<long: \"").Append(field).Append("\">");
+					buffer.Append("<long: \"").Append(m_field).Append("\">");
 					break;
 				
 				case FLOAT: 
-					buffer.Append("<float: \"").Append(field).Append("\">");
+					buffer.Append("<float: \"").Append(m_field).Append("\">");
 					break;
 				
 				case DOUBLE: 
-					buffer.Append("<double: \"").Append(field).Append("\">");
+					buffer.Append("<double: \"").Append(m_field).Append("\">");
 					break;
 				
 				case CUSTOM: 
-					buffer.Append("<custom:\"").Append(field).Append("\": ").Append(comparatorSource).Append('>');
+					buffer.Append("<custom:\"").Append(m_field).Append("\": ").Append(comparatorSource).Append('>');
 					break;
 				
 				default: 
-					buffer.Append("<???: \"").Append(field).Append("\">");
+					buffer.Append("<???: \"").Append(m_field).Append("\">");
 					break;
 				
 			}
@@ -395,7 +395,7 @@ namespace Lucene.Net.Search
 			if (!(o is SortField))
 				return false;
 			SortField other = (SortField) o;
-		    return ((object) other.field == (object) this.field && other.type == this.type &&
+		    return ((object) other.m_field == (object) this.m_field && other.type == this.type &&
 		            other.reverse == this.reverse &&
 		            (other.locale == null ? this.locale == null : other.locale.Equals(this.locale)) &&
 		            (other.comparatorSource == null
@@ -413,8 +413,8 @@ namespace Lucene.Net.Search
 		public override int GetHashCode()
 		{
 			int hash = type ^ 0x346565dd + (reverse ? bool.TrueString.GetHashCode() : bool.FalseString.GetHashCode()) ^ unchecked((int) 0xaf5998bb);
-			if (field != null)
-				hash += (field.GetHashCode() ^ unchecked((int) 0xff5685dd));
+			if (m_field != null)
+				hash += (m_field.GetHashCode() ^ unchecked((int) 0xff5685dd));
 			if (locale != null)
 			{
 				hash += (locale.GetHashCode() ^ 0x08150815);
@@ -437,7 +437,7 @@ namespace Lucene.Net.Search
         [System.Runtime.Serialization.OnDeserialized]
         internal void OnDeserialized(System.Runtime.Serialization.StreamingContext context)
         {
-            field = StringHelper.Intern(field);
+            m_field = StringHelper.Intern(m_field);
         }
 		
 		/// <summary>Returns the <see cref="FieldComparator" /> to use for
@@ -464,7 +464,7 @@ namespace Lucene.Net.Search
 				// TODO: it'd be nice to allow FieldCache.getStringIndex
 				// to optionally accept a Locale so sorting could then use
 				// the faster StringComparator impls
-				return new FieldComparator.StringComparatorLocale(numHits, field, locale);
+				return new FieldComparator.StringComparatorLocale(numHits, m_field, locale);
 			}
 			
 			switch (type)
@@ -476,32 +476,32 @@ namespace Lucene.Net.Search
 					return new FieldComparator.DocComparator(numHits);
 				
 				case SortField.INT: 
-					return new FieldComparator.IntComparator(numHits, field, parser);
+					return new FieldComparator.IntComparator(numHits, m_field, parser);
 				
 				case SortField.FLOAT: 
-					return new FieldComparator.FloatComparator(numHits, field, parser);
+					return new FieldComparator.FloatComparator(numHits, m_field, parser);
 				
 				case SortField.LONG: 
-					return new FieldComparator.LongComparator(numHits, field, parser);
+					return new FieldComparator.LongComparator(numHits, m_field, parser);
 				
 				case SortField.DOUBLE: 
-					return new FieldComparator.DoubleComparator(numHits, field, parser);
+					return new FieldComparator.DoubleComparator(numHits, m_field, parser);
 				
 				case SortField.BYTE: 
-					return new FieldComparator.ByteComparator(numHits, field, parser);
+					return new FieldComparator.ByteComparator(numHits, m_field, parser);
 				
 				case SortField.SHORT: 
-					return new FieldComparator.ShortComparator(numHits, field, parser);
+					return new FieldComparator.ShortComparator(numHits, m_field, parser);
 				
 				case SortField.CUSTOM: 
 					System.Diagnostics.Debug.Assert(comparatorSource != null);
-					return comparatorSource.NewComparator(field, numHits, sortPos, reverse);
+					return comparatorSource.NewComparator(m_field, numHits, sortPos, reverse);
 				
 				case SortField.STRING: 
-					return new FieldComparator.StringOrdValComparator(numHits, field, sortPos, reverse);
+					return new FieldComparator.StringOrdValComparator(numHits, m_field, sortPos, reverse);
 				
 				case SortField.STRING_VAL: 
-					return new FieldComparator.StringValComparator(numHits, field);
+					return new FieldComparator.StringValComparator(numHits, m_field);
 				
 				default: 
 					throw new System.SystemException("Illegal sort type: " + type);
