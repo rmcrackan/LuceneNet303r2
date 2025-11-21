@@ -42,7 +42,7 @@ namespace Lucene.Net.Search
 		private string lowerTerm;
 		private string upperTerm;
 		private System.Globalization.CompareInfo collator;
-		private string field;
+		private string m_field;
 		private bool includeLower;
 		private bool includeUpper;
 		
@@ -109,7 +109,7 @@ namespace Lucene.Net.Search
 	    /// </param>
 	    public TermRangeQuery(string field, string lowerTerm, string upperTerm, bool includeLower, bool includeUpper, System.Globalization.CompareInfo collator)
 		{
-			this.field = field;
+			this.m_field = field;
 			this.lowerTerm = lowerTerm;
 			this.upperTerm = upperTerm;
 			this.includeLower = includeLower;
@@ -120,7 +120,7 @@ namespace Lucene.Net.Search
 	    /// <summary>Returns the field name for this query </summary>
 	    public virtual string Field
 	    {
-	        get { return field; }
+	        get { return m_field; }
 	    }
 
 	    /// <summary>Returns the lower value of this range query </summary>
@@ -155,7 +155,7 @@ namespace Lucene.Net.Search
 
 	    protected internal override FilteredTermEnum GetEnum(IndexReader reader)
 		{
-			return new TermRangeTermEnum(reader, field, lowerTerm, upperTerm, includeLower, includeUpper, collator);
+			return new TermRangeTermEnum(reader, m_field, lowerTerm, upperTerm, includeLower, includeUpper, collator);
 		}
 		
 		/// <summary>Prints a user-readable version of this query. </summary>
@@ -182,7 +182,7 @@ namespace Lucene.Net.Search
 			int prime = 31;
 			int result = base.GetHashCode();
 			result = prime * result + ((collator == null)?0:collator.GetHashCode());
-			result = prime * result + ((field == null)?0:field.GetHashCode());
+			result = prime * result + ((m_field == null)?0:m_field.GetHashCode());
 			result = prime * result + (includeLower?1231:1237);
 			result = prime * result + (includeUpper?1231:1237);
 			result = prime * result + ((lowerTerm == null)?0:lowerTerm.GetHashCode());
@@ -207,12 +207,12 @@ namespace Lucene.Net.Search
 			}
 			else if (!collator.Equals(other.collator))
 				return false;
-			if (field == null)
+			if (m_field == null)
 			{
-				if (other.field != null)
+				if (other.m_field != null)
 					return false;
 			}
-			else if (!field.Equals(other.field))
+			else if (!m_field.Equals(other.m_field))
 				return false;
 			if (includeLower != other.includeLower)
 				return false;

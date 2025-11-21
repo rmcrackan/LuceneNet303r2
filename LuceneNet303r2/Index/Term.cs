@@ -31,7 +31,7 @@ namespace Lucene.Net.Index
 	[Serializable]
     public sealed class Term : System.IComparable<Term>
 	{
-		internal string field;
+		internal string m_field;
 		internal string text;
 		
 		/// <summary>Constructs a Term with the given field and text.
@@ -40,7 +40,7 @@ namespace Lucene.Net.Index
 		/// </summary>
 		public Term(string fld, string txt)
 		{
-			field = StringHelper.Intern(fld);
+			m_field = StringHelper.Intern(fld);
 			text = txt;
 		}
 		
@@ -57,7 +57,7 @@ namespace Lucene.Net.Index
 		
 		internal Term(string fld, string txt, bool intern)
 		{
-			field = intern?StringHelper.Intern(fld):fld; // field names are interned
+			m_field = intern?StringHelper.Intern(fld):fld; // field names are interned
 			text = txt; // unless already known to be
 		}
 
@@ -66,7 +66,7 @@ namespace Lucene.Net.Index
 	    /// </summary>
 	    public string Field
 	    {
-	        get { return field; }
+	        get { return m_field; }
 	    }
 
 	    /// <summary>Returns the text of this term.  In the case of words, this is simply the
@@ -87,7 +87,7 @@ namespace Lucene.Net.Index
 		/// </returns>
 		public Term CreateTerm(string text)
 		{
-			return new Term(field, text, false);
+			return new Term(m_field, text, false);
 		}
 		
 		//@Override
@@ -100,12 +100,12 @@ namespace Lucene.Net.Index
 			if (GetType() != obj.GetType())
 				return false;
 			Term other = (Term) obj;
-			if (field == null)
+			if (m_field == null)
 			{
-				if (other.field != null)
+				if (other.m_field != null)
 					return false;
 			}
-			else if (!field.Equals(other.field))
+			else if (!m_field.Equals(other.m_field))
 				return false;
 			if (text == null)
 			{
@@ -122,7 +122,7 @@ namespace Lucene.Net.Index
 		{
 			int prime = 31;
 			int result = 1;
-		    result = prime*result + ((field == null) ? 0 : field.GetHashCode());
+		    result = prime*result + ((m_field == null) ? 0 : m_field.GetHashCode());
 		    result = prime*result + ((text == null) ? 0 : text.GetHashCode());
 			return result;
 		}
@@ -134,11 +134,11 @@ namespace Lucene.Net.Index
 		/// </summary>
 		public int CompareTo(Term other)
 		{
-			if ((object) field == (object) other.field)
+			if ((object) m_field == (object) other.m_field)
 			// fields are interned
 				return string.CompareOrdinal(text, other.text);
 			else
-				return string.CompareOrdinal(field, other.field);
+				return string.CompareOrdinal(m_field, other.m_field);
 		}
 		
         ///// <summary>Resets the field and text of a Term. </summary>
@@ -150,7 +150,7 @@ namespace Lucene.Net.Index
 		
 		public override string ToString()
 		{
-			return field + ":" + text;
+			return m_field + ":" + text;
 		}
 		
 //		private void  ReadObject(System.IO.BinaryReader in_Renamed)
@@ -162,7 +162,7 @@ namespace Lucene.Net.Index
         [System.Runtime.Serialization.OnDeserialized]
         internal void OnDeserialized(System.Runtime.Serialization.StreamingContext context)
         {
-            field = StringHelper.Intern(field);
+            m_field = StringHelper.Intern(m_field);
         }
 	}
 }

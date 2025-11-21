@@ -783,7 +783,7 @@ namespace Lucene.Net.Search
 			private int currentReaderGen = - 1;
 			private string[] lookup;
 			private int[] order;
-			private string field;
+			private string m_field;
 			
 			private int bottomSlot = - 1;
 			private int bottomOrd;
@@ -798,7 +798,7 @@ namespace Lucene.Net.Search
 				readerGen = new int[numHits];
 				this.sortPos = sortPos;
 				this.reversed = reversed;
-				this.field = field;
+				this.m_field = field;
 			}
 			
 			public override int Compare(int slot1, int slot2)
@@ -906,7 +906,7 @@ namespace Lucene.Net.Search
 			
 			public override void  SetNextReader(IndexReader reader, int docBase)
 			{
-				StringIndex currentReaderValues = Lucene.Net.Search.FieldCache_Fields.DEFAULT.GetStringIndex(reader, field);
+				StringIndex currentReaderValues = Lucene.Net.Search.FieldCache_Fields.DEFAULT.GetStringIndex(reader, m_field);
 				currentReaderGen++;
 				order = currentReaderValues.order;
 				lookup = currentReaderValues.lookup;
@@ -948,7 +948,7 @@ namespace Lucene.Net.Search
 
 		    public string Field
 		    {
-		        get { return field; }
+		        get { return m_field; }
 		    }
 		}
 		

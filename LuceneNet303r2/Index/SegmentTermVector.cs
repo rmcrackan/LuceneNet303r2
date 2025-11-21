@@ -23,13 +23,13 @@ namespace Lucene.Net.Index
 	
 	class SegmentTermVector : ITermFreqVector
 	{
-		private string field;
+		private string m_field;
 		private string[] terms;
 		private int[] termFreqs;
 		
 		internal SegmentTermVector(string field, string[] terms, int[] termFreqs)
 		{
-			this.field = field;
+			this.m_field = field;
 			this.terms = terms;
 			this.termFreqs = termFreqs;
 		}
@@ -38,14 +38,14 @@ namespace Lucene.Net.Index
 	    /// <value> The number of the field this vector is associated with </value>
 	    public virtual string Field
 	    {
-	        get { return field; }
+	        get { return m_field; }
 	    }
 
 	    public override string ToString()
 		{
 			System.Text.StringBuilder sb = new System.Text.StringBuilder();
 			sb.Append('{');
-			sb.Append(field).Append(": ");
+			sb.Append(m_field).Append(": ");
 			if (terms != null)
 			{
 				for (int i = 0; i < terms.Length; i++)

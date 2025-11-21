@@ -23,7 +23,7 @@ namespace Lucene.Net.Index
 	/// <summary> Convenience class for holding TermVector information.</summary>
 	public class TermVectorEntry
 	{
-		private string field;
+		private string m_field;
 		private string term;
 		private int frequency;
 		private TermVectorOffsetInfo[] offsets;
@@ -36,7 +36,7 @@ namespace Lucene.Net.Index
 		
 		public TermVectorEntry(string field, string term, int frequency, TermVectorOffsetInfo[] offsets, int[] positions)
 		{
-			this.field = field;
+			this.m_field = field;
 			this.term = term;
 			this.frequency = frequency;
 			this.offsets = offsets;
@@ -46,7 +46,7 @@ namespace Lucene.Net.Index
 
 	    public virtual string Field
 	    {
-	        get { return field; }
+	        get { return m_field; }
 	    }
 
 	    public virtual int Frequency
@@ -102,7 +102,7 @@ namespace Lucene.Net.Index
 		
 		public override string ToString()
 		{
-			return "TermVectorEntry{" + "field='" + field + '\'' + ", term='" + term + '\'' + ", frequency=" + frequency + '}';
+			return "TermVectorEntry{" + "field='" + m_field + '\'' + ", term='" + term + '\'' + ", frequency=" + frequency + '}';
 		}
 	}
 }
